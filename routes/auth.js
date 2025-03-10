@@ -112,6 +112,4 @@ router.get('/user/:cedula', async (req, res) => {
     }
 });
 
-
-localStorage.setItem('fullName', data.fullName);
 module.exports = router;
