@@ -9,11 +9,7 @@ const registroSchema = new mongoose.Schema({
         lng: { type: Number, required: true }
     },
     fecha: { type: Date, default: Date.now }, // Se sobrescribe con obtenerFechaLocal()
-    tipo: { type: String, required: true }, // 'entrada' o 'salida'
-    pdf: {
-        data: Buffer,
-        contentType: String
-    }
+    tipo: { type: String, required: true } // 'entrada' o 'salida'
 });
 
 module.exports = mongoose.model('Registro', registroSchema);
