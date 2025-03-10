@@ -314,28 +314,6 @@ document.getElementById('welcomeMessage').innerHTML = capitalizeWords(welcomeMes
          
     </script>
 
-    <button onclick="mostrarImagenes()">Mostrar Imágenes</button>  
-<div id="contenedorImagenes"></div>  
-
-<script>
-    async function mostrarImagenes() {
-        const respuesta = await fetch("/obtener-imagenes"); // Llamada al backend
-        const imagenes = await respuesta.json();  
-
-        const contenedor = document.getElementById("contenedorImagenes");
-        contenedor.innerHTML = ""; // Limpia antes de agregar nuevas imágenes
-
-        imagenes.forEach(base64 => {
-            const img = document.createElement("img");
-            img.src = `data:image/png;base64,${base64}`;
-            img.style.maxWidth = "200px"; // Ajusta el tamaño si es necesario
-            img.style.margin = "10px";
-            contenedor.appendChild(img);
-        });
-    }
-</script>
-    
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const token = localStorage.getItem("token");
