@@ -5,7 +5,6 @@ const registroRoutes = require("./routes/registro");
 const path = require("path");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 require("dotenv").config();
 
 const app = express();
@@ -42,34 +41,6 @@ const verifyToken = (req, res, next) => {
 // Nueva ruta para verificar el token desde el frontend
 app.get("/api/auth/verify", verifyToken, (req, res) => {
     res.json({ message: "Token válido" });
-});
-
-// Configurar `multer` para almacenar PDFs en memoria
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-
-// Ruta para subir PDFs
-app.post("/upload", verifyToken, upload.single("pdfFile"), async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ msg: "No se subió ningún archivo" });
-        }
-
-        const Registro = require("./models/registro");
-
-        const nuevoRegistro = new Registro({
-            userId: req.user.id,
-            pdf: {
-                data: req.file.buffer,
-                contentType: req.file.mimetype
-            }
-        });
-
-        await nuevoRegistro.save();
-        res.json({ msg: "PDF subido correctamente", fileName: req.file.originalname });
-    } catch (error) {
-        res.status(500).json({ msg: "Error al subir el archivo", error: error.message });
-    }
 });
 
 // Redirigir la raíz a /login
