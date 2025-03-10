@@ -63,6 +63,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Ruta para el inicio de sesión
+
 router.post('/login', async (req, res) => {
     const { cedula, password, deviceID } = req.body;
 
@@ -73,7 +74,6 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Usuario no encontrado' });
         }
 
-        // Verificar la contraseña usando el método matchPassword
         const isMatch = await user.matchPassword(password);
         if (!isMatch) {
             return res.status(400).json({ msg: 'Contraseña incorrecta' });
@@ -86,7 +86,11 @@ router.post('/login', async (req, res) => {
         const payload = { userId: user._id };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-        res.json({ token, msg: 'Inicio de sesión exitoso' });
+        res.json({ 
+            token, 
+            fullName: user.fullName, // ✅ Ahora se envía fullName en la respuesta 
+            msg: 'Inicio de sesión exitoso' 
+        });
 
     } catch (error) {
         console.error("Error en el servidor:", error.message);
