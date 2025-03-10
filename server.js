@@ -38,6 +38,13 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+app.get("/obtener-imagenes", async (req, res) => {
+    const imagenes = await Imagen.find(); // Obtiene todas las imágenes
+    if (!imagenes.length) return res.status(404).send("No hay imágenes");
+
+    res.json(imagenes.map(img => img.base64)); // Envía todas las imágenes en Base64
+});
+
 // Nueva ruta para verificar el token desde el frontend
 app.get("/api/auth/verify", verifyToken, (req, res) => {
     res.json({ message: "Token válido" });
