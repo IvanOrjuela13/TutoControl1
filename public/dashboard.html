@@ -300,8 +300,16 @@
 
         // Obtener el nombre del usuario desde localStorage o usar un valor por defecto
     
-    const fullName = localStorage.getItem('fullName') || 'Usuario'; 
-    document.getElementById('welcomeMessage').innerHTML = `🔥 ¡Bienvenido, ${fullName}! Listo para marcar tu registro con estilo. 🚀`;
+        const fullName = localStorage.getItem('fullName') || 'Usuario';
+
+function capitalizeWords(str) {
+  return str.replace(/(^|\s)([a-záéíóúñ])/g, (match, separator, letter) => {
+    return separator + letter.toUpperCase();
+  });
+}
+
+const welcomeMessage = `🔥 ¡Bienvenido, ${fullName}! Listo para marcar tu registro con estilo. 🚀`;
+document.getElementById('welcomeMessage').innerHTML = capitalizeWords(welcomeMessage);
 
          
     </script>
