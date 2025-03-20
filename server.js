@@ -12,8 +12,9 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
-// Middleware para JSON
-app.use(express.json());
+// Aumentar el límite de tamaño de las solicitudes
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Middleware para CORS
 app.use(cors());
